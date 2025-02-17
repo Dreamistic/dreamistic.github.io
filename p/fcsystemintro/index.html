@@ -415,16 +415,15 @@
     <h1 id="function-calling-is-all-you-need">Function Calling Is All you need
 </h1><p>作者:Dreamistic</p>
 <p>日期:2025/2/17</p>
-<ul>
-<li>
-<h1 id="function-calling-is-all-you-need-1">Function Calling Is All you need
-</h1><p>作者:Dreamistic</p>
-<p>日期:2025/2/17</p>
 <h2 id="intro">Intro
 </h2><p>你还在为LLM只能依靠自身信息回复你吗？你还在为&hellip;省略1w种方式，今天，在下向您推出并非全新的FC功能，让您的AI也能实现实时联网，删改记忆，发送邮件，操控家里的电子设备！</p>
-<p>简单来说，Function Calling是一个指定格式的文本，告诉后端该如何处理，同时将函数调用结果作为下一次LLM生成的prompt的一部分，目前最为热门的是Claude的MCP项目，本人在构建这样一个系统中也踩过不少的坑，这个Function Calling系统经过三次重构，但仍然可能存在问题。</p>
+<p>简单来说，Function Calling是一个指定格式的文本，告诉后端该如何处理，同时将函数调用结果作为下一次LLM生成的prompt的一部分，目前最为热门的是Claude的<a class="link" href="https://github.com/modelcontextprotocol/servers"  title="github链接"
+     target="_blank" rel="noopener"
+    >MCP项目</a>，本人在构建这样一个系统中也踩过不少的坑，这个Function Calling系统经过三次重构，但仍然可能存在问题。</p>
 <blockquote>
-<p>注：本文及所有代码均由<strong>文心一言</strong>生成，如有任何错误及bug请友好地咨询文心一言。</p>
+<p>注：本文及所有代码均由<strong>文心一言</strong>生成，如有任何错误及bug请友好地咨询<a class="link" href="https://yiyan.baidu.com/"  title="官网地址 What&#39;s the problem with you"
+     target="_blank" rel="noopener"
+    >文心一言</a>。</p>
 </blockquote>
 <h2 id="简介">简介
 </h2><p>这是一个基于XML格式的Function Calling系统，<strong>主要用于实现AI助手调用外部函数的功能</strong>。系统采用注册器模式设计，具有以下特点：</p>
@@ -505,27 +504,27 @@
 </span></span><span class="line"><span class="cl">                            <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># 1. 获取AI响应</span>
 </span></span><span class="line"><span class="cl">    <span class="n">response_content</span><span class="p">,</span> <span class="n">has_function_calls</span> <span class="o">=</span> <span class="n">get_ai_response</span><span class="p">(</span><span class="n">system_prompt</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1"># 2. 检查是否需要函数调用</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">has_function_calls</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="c1"># 3. 解析并执行函数调用</span>
 </span></span><span class="line"><span class="cl">        <span class="n">results</span> <span class="o">=</span> <span class="n">parse_and_execute_function_calls</span><span class="p">(</span><span class="n">response_content</span><span class="p">,</span> <span class="n">registry</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1"># 4. 处理函数调用结果</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">results</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">function_responses</span> <span class="o">=</span> <span class="p">[]</span>
 </span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">                <span class="c1"># 处理结果...</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                
 </span></span><span class="line"><span class="cl">            <span class="c1"># 5. 更新对话上下文</span>
 </span></span><span class="line"><span class="cl">            <span class="n">context</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
 </span></span><span class="line"><span class="cl">                <span class="p">{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;assistant&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> 
 </span></span><span class="line"><span class="cl">                 <span class="sa">f</span><span class="s2">&#34;&lt;function_response&gt;</span><span class="si">{</span><span class="n">function_responses</span><span class="si">}</span><span class="s2">&lt;/function_response&gt;&#34;</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">            <span class="p">])</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            
 </span></span><span class="line"><span class="cl">            <span class="c1"># 6. 递归继续对话</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">process_conversation_turn</span><span class="p">(</span><span class="n">system_prompt</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">response_content</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -580,7 +579,7 @@
 </span></span><span class="line"><span class="cl">        <span class="n">xml_content</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1"># 2. 解析每个invoke</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">function_blocks</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="n">invokes</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
@@ -912,7 +911,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_functions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_descriptions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># 存储函数的详细描述</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;注册函数，同时记录其描述和参数信息&#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_functions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span>
@@ -920,26 +919,26 @@
 </span></span><span class="line"><span class="cl">            <span class="s2">&#34;description&#34;</span><span class="p">:</span> <span class="n">description</span> <span class="ow">or</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span> <span class="ow">or</span> <span class="s2">&#34;No description available&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="s2">&#34;parameters&#34;</span><span class="p">:</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;调用已注册的函数&#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_functions</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Function &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; not found in registry&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_functions</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">generate_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;生成XML格式的函数描述&#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">xml_parts</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_descriptions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">            <span class="n">function_xml</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;      &lt;function name=&#34;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#34;&gt;&#39;</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">            <span class="n">function_xml</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;        &lt;description&gt;</span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s2">&#34;description&#34;</span><span class="p">]</span><span class="si">}</span><span class="s1">&lt;/description&gt;&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">info</span><span class="p">[</span><span class="s2">&#34;parameters&#34;</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_info</span> <span class="ow">in</span> <span class="n">info</span><span class="p">[</span><span class="s2">&#34;parameters&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">                    <span class="n">param_xml</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;          &lt;parameter name=&#34;</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">&#34; type=&#34;</span><span class="si">{</span><span class="n">param_info</span><span class="p">[</span><span class="s2">&#34;type&#34;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#34;&gt;&#39;</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">                    <span class="n">param_xml</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;            &lt;description&gt;</span><span class="si">{</span><span class="n">param_info</span><span class="p">[</span><span class="s2">&#34;description&#34;</span><span class="p">]</span><span class="si">}</span><span class="s1">&lt;/description&gt;&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    
 </span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="s2">&#34;options&#34;</span> <span class="ow">in</span> <span class="n">param_info</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">                        <span class="n">param_xml</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;            &lt;options&gt;&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                        <span class="k">for</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">param_info</span><span class="p">[</span><span class="s2">&#34;options&#34;</span><span class="p">]:</span>
@@ -950,18 +949,18 @@
 </span></span><span class="line"><span class="cl">                            <span class="n">option_xml</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;              &lt;/option&gt;&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                        <span class="n">param_xml</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">option_xml</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">                        <span class="n">param_xml</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;            &lt;/options&gt;&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    
 </span></span><span class="line"><span class="cl">                    <span class="n">param_xml</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;          &lt;/parameter&gt;&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                    <span class="n">function_xml</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_xml</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            
 </span></span><span class="line"><span class="cl">            <span class="n">function_xml</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;      &lt;/function&gt;&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">function_xml</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xml_parts</span><span class="p">)</span>    
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">update_system_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;更新system_prompt中的functions部分&#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="kn">import</span> <span class="nn">re</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1"># 生成新的functions内容</span>
 </span></span><span class="line"><span class="cl">        <span class="n">new_functions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_xml</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">#print(new_functions)</span>
@@ -981,7 +980,7 @@
 </span></span><span class="line"><span class="cl">        <span class="n">current_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">updated_prompt</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;current_time&gt;.*?&lt;/current_time&gt;&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;&lt;current_time&gt;</span><span class="si">{</span><span class="n">current_time</span><span class="si">}</span><span class="s1">&lt;/current_time&gt;&#39;</span><span class="p">,</span> <span class="n">updated_prompt</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">updated_prompt</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">read_system_prompt</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;system_prompt.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -1005,20 +1004,20 @@
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse_and_execute_function_calls</span><span class="p">(</span><span class="n">xml_content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">registry</span><span class="p">:</span> <span class="n">FunctionRegistry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;解析XML格式的function calls并执行函数&#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="n">function_blocks</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="sa">r</span><span class="s1">&#39;&lt;function_calls&gt;(.*?)&lt;/function_calls&gt;&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="n">xml_content</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">function_blocks</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="n">invokes</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="sa">r</span><span class="s1">&#39;&lt;invoke name=&#34;(.*?)&#34;&gt;(.*?)&lt;/invoke&gt;&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="n">block</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
 </span></span><span class="line"><span class="cl">        <span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">invokes</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">            <span class="n">param_matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
@@ -1026,10 +1025,10 @@
 </span></span><span class="line"><span class="cl">                <span class="n">params</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
 </span></span><span class="line"><span class="cl">            <span class="p">)</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            
 </span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_value</span> <span class="ow">in</span> <span class="n">param_matches</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">                <span class="n">parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            
 </span></span><span class="line"><span class="cl">            <span class="c1"># 执行函数调用</span>
 </span></span><span class="line"><span class="cl">            <span class="k">try</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">func_name</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span>
@@ -1044,13 +1043,13 @@
 </span></span><span class="line"><span class="cl">                    <span class="s2">&#34;parameters&#34;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                    <span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                <span class="p">})</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">results</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span> 
 </span></span><span class="line"><span class="cl">    <span class="c1"># 创建注册器</span>
 </span></span><span class="line"><span class="cl">    <span class="n">registry</span> <span class="o">=</span> <span class="n">FunctionRegistry</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1"># 注册create_memory函数</span>
 </span></span><span class="line"><span class="cl">    <span class="n">registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="s2">&#34;create_memory&#34;</span><span class="p">,</span>
@@ -1103,7 +1102,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># 更新system_prompt</span>
 </span></span><span class="line"><span class="cl">    <span class="n">system_prompt</span> <span class="o">=</span> <span class="n">read_system_prompt</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="n">updated_prompt</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">update_system_prompt</span><span class="p">(</span><span class="n">system_prompt</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">test_xml</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
@@ -1116,7 +1115,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="s2">*歪着头看着主人* 我已经把这条记忆添加到短期记忆中啦！因为是测试用的记忆，所以我把它设为了短期记忆优先级。主人还想测试什么功能吗？*眨眨眼睛*
 </span></span></span><span class="line"><span class="cl"><span class="s2">%对话2结束%
 </span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="n">results</span> <span class="o">=</span> <span class="n">parse_and_execute_function_calls</span><span class="p">(</span><span class="n">test_xml</span><span class="p">,</span> <span class="n">registry</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
@@ -1182,9 +1181,7 @@
 </span></span><span class="line"><span class="cl">我不介意再来一次30分钟的禁言呢~
 </span></span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-<h2 id="核心组件-1">核心组件
+</div><h2 id="核心组件-1">核心组件
 </h2><h3 id="1-functionregistry-类-1">1. FunctionRegistry 类
 </h3><p>这是整个系统的核心组件，负责管理和执行函数调用。</p>
 <div class="highlight"><div class="chroma">
@@ -1420,7 +1417,8 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">process_conversation_turn</span><span class="p">(</span><span class="n">system_prompt</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>本文提供一个示例demo：</p>
+</div><p>本文提供一个示例<a class="link" href="https://github.com/Dreamistic/FunctionCallingSystem/blob/main/demo.py"  target="_blank" rel="noopener"
+    >demo</a>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
