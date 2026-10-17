@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://dreamistic.github.io/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -16,16 +16,16 @@
                 />
   </url><url>
     <loc>https://dreamistic.github.io/tags/agent/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/categories/ai/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/tags/ai-companion/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/categories/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -37,20 +37,23 @@
                 href="https://dreamistic.github.io/categories/"
                 />
   </url><url>
+    <loc>https://dreamistic.github.io/tags/codeact/</loc>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://dreamistic.github.io/tags/fastapi/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/post/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/tags/rag/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/tags/react/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/tags/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -63,10 +66,10 @@
                 />
   </url><url>
     <loc>https://dreamistic.github.io/categories/%E4%B8%AA%E4%BA%BA%E4%BD%9C%E5%93%81/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/p/ai-companion-agent/</loc>
-    <lastmod>2026-10-06T20:00:00+08:00</lastmod>
+    <lastmod>2026-10-17T21:00:00+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/categories/develop/</loc>
     <lastmod>2025-02-17T00:00:00+00:00</lastmod>
@@ -76,9 +79,6 @@
   </url><url>
     <loc>https://dreamistic.github.io/categories/llm/</loc>
     <lastmod>2025-02-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://dreamistic.github.io/p/myfirstblog/</loc>
-    <lastmod>2024-11-03T18:37:10+08:00</lastmod>
   </url><url>
     <loc>https://dreamistic.github.io/p/test-chinese/</loc>
     <lastmod>2020-09-09T00:00:00+00:00</lastmod>
@@ -94,6 +94,8 @@
   </url><url>
     <loc>https://dreamistic.github.io/page/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://dreamistic.github.io/p/</loc>
   </url><url>
     <loc>https://dreamistic.github.io/links/</loc>
   </url><url>
