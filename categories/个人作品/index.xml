@@ -7,7 +7,117 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Dreamistic</copyright>
-        <lastBuildDate>Sat, 17 Oct 2026 21:00:00 +0800</lastBuildDate><atom:link href="https://dreamistic.github.io/categories/%E4%B8%AA%E4%BA%BA%E4%BD%9C%E5%93%81/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 17 Oct 2026 22:30:00 +0800</lastBuildDate><atom:link href="https://dreamistic.github.io/categories/%E4%B8%AA%E4%BA%BA%E4%BD%9C%E5%93%81/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>在吗：让 Claude Code 先看看你在不在</title>
+        <link>https://dreamistic.github.io/p/are-you-there/</link>
+        <pubDate>Sat, 17 Oct 2026 22:30:00 +0800</pubDate>
+        
+        <guid>https://dreamistic.github.io/p/are-you-there/</guid>
+        <description>&lt;img src="https://dreamistic.github.io/p/are-you-there/cover.jpg" alt="Featured image of post 在吗：让 Claude Code 先看看你在不在" /&gt;&lt;p&gt;Claude Code 跑长任务，常常跑到一半停下来问一句：「接口用 Postgres 还是 SQLite？」然后就在那儿等。我二十分钟前已经起身去倒水了，回来一看，它原地等了二十分钟。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在吗&lt;/strong&gt;（are-you-there）就是为这个写的插件。Claude 要等你之前，先看看你到底在不在：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;在终端前&lt;/strong&gt;：什么都不变，照常问。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在电脑前，但开着别的窗口&lt;/strong&gt;：弹一条桌面通知，免得你错过。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;人不在&lt;/strong&gt;：问题推到手机上，点一下答案，Claude 接着干。你要是先回到了终端，问题照常在那儿等你。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代码在 &lt;a class=&#34;link&#34; href=&#34;https://github.com/Dreamistic/are-you-there&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub&lt;/a&gt;，MIT 协议，只用 Python 标准库，不用注册账号，也不用自己跑服务器。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dreamistic.github.io/p/are-you-there/answer-page-zh.png&#34;
+	width=&#34;880&#34;
+	height=&#34;904&#34;
+	srcset=&#34;https://dreamistic.github.io/p/are-you-there/answer-page-zh_hu17296192438828601702.png 480w, https://dreamistic.github.io/p/are-you-there/answer-page-zh_hu11158124744598891888.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;手机上的答题页，亮色和暗色&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;97&#34;
+		data-flex-basis=&#34;233px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;怎么知道你在不在&#34;&gt;怎么知道你在不在
+&lt;/h2&gt;&lt;p&gt;看两个系统信号：整台电脑上一次键盘鼠标输入是多久以前，现在哪个窗口拿着焦点。&lt;/p&gt;
+&lt;p&gt;焦点窗口要是属于正在跑 Claude Code 的那个终端，就算你在终端前。判断是不是那个终端，靠顺着进程树往上找；找不到，再对照一份常见终端和编辑器的名单。锁屏直接算不在。&lt;/p&gt;
+&lt;p&gt;阈值分两档。焦点在别的应用上，3 分钟没有输入算离开；焦点就在终端上，放宽到 5 分钟。盯着一段长回答看，鼠标也是不动的，不能算走了。&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;平台&lt;/th&gt;
+          &lt;th&gt;状态&lt;/th&gt;
+          &lt;th&gt;用到的信号&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Windows 10/11&lt;/td&gt;
+          &lt;td&gt;实测可用&lt;/td&gt;
+          &lt;td&gt;系统空闲时间、前台窗口、锁屏&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;macOS&lt;/td&gt;
+          &lt;td&gt;写好了，还没在真机上测&lt;/td&gt;
+          &lt;td&gt;HIDIdleTime、前台应用、锁屏&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Linux（X11 / GNOME Wayland）&lt;/td&gt;
+          &lt;td&gt;实验性&lt;/td&gt;
+          &lt;td&gt;xprintidle、xdotool、Mutter IdleMonitor&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;SSH、容器、WSL&lt;/td&gt;
+          &lt;td&gt;不出声&lt;/td&gt;
+          &lt;td&gt;输入发生在另一台机器上，判断不了&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;手机上点的答案怎么回到-claude-那里&#34;&gt;手机上点的答案，怎么回到 Claude 那里
+&lt;/h2&gt;&lt;p&gt;靠的是 Claude Code 的一个 hook 能力：&lt;code&gt;PreToolUse&lt;/code&gt; hook 可以通过 &lt;code&gt;updatedInput&lt;/code&gt;，把 &lt;code&gt;AskUserQuestion&lt;/code&gt; 的 &lt;code&gt;answers&lt;/code&gt; 直接填上。这道题就算答完了，终端里不会再弹选择框。&lt;/p&gt;
+&lt;p&gt;Claude 每次调用 &lt;code&gt;AskUserQuestion&lt;/code&gt;，hook 先读系统空闲时间和焦点窗口，再分三种情况：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在终端前：照常提问。&lt;/li&gt;
+&lt;li&gt;在电脑前、焦点在别处：照常提问，再弹一条桌面通知。&lt;/li&gt;
+&lt;li&gt;人不在：推到手机。
+&lt;ul&gt;
+&lt;li&gt;手机上点了答案：hook 把答案填进去，Claude 继续。&lt;/li&gt;
+&lt;li&gt;先回到了终端：照常提问。&lt;/li&gt;
+&lt;li&gt;30 分钟没回：照常提问，或者让 Claude 自己定。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;推送可以走 &lt;a class=&#34;link&#34; href=&#34;https://ntfy.sh&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ntfy&lt;/a&gt;、Bark，也可以走飞书、钉钉、企业微信、Slack、Discord 这些机器人 Webhook。不管从哪个渠道推出去，答案都经一个一次性的 ntfy topic 传回电脑，哪个渠道都能答。&lt;/p&gt;
+&lt;p&gt;答题页是放在 GitHub Pages 上的一个静态 HTML，单选、多选都能答，跟着系统切亮色暗色。&lt;/p&gt;
+&lt;h2 id=&#34;安全上做了什么&#34;&gt;安全上做了什么
+&lt;/h2&gt;&lt;p&gt;手机能替你回答 Agent 的问题，别人能不能也替你回答？这类工具绕不开这个问题。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每道题配一个一次性的随机 topic 和一个 nonce。电脑只认 nonce 对得上的答案，过期的一律不收。&lt;/li&gt;
+&lt;li&gt;默认只接受题目里给出的选项。有人伪造一条回复、塞一段指令进来，会被直接丢掉，进不了 Agent 的上下文。想在手机上手打答案，得自己打开 &lt;code&gt;allow_free_text&lt;/code&gt;，最好再配一个私有中继。&lt;/li&gt;
+&lt;li&gt;问题内容放在链接 &lt;code&gt;#&lt;/code&gt; 后面那一段。浏览器不会把这一段发给服务器，托管页面的 GitHub 看不到你的问题。&lt;/li&gt;
+&lt;li&gt;答题页分清「已发到中继」和「电脑已收到」。收不到电脑的确认，就如实显示未确认，不会说 Claude 已经继续了。&lt;/li&gt;
+&lt;li&gt;需要鉴权的中继，凭据只放在电脑上，不出现在推送和链接里。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些设计都写在 README 里，代码也是公开的。安全靠的是每道题随机生成的 topic 和 nonce，用不着把做法藏起来。&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/plugin marketplace add Dreamistic/are-you-there
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/plugin install are-you-there@are-you-there
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;装好后运行 &lt;code&gt;/are-you-there:setup&lt;/code&gt;，Claude 会带你选推送渠道、生成私有 topic，再往手机上发一道测试题。需要 Python 3.8 以上；Windows 上还要有 Git Bash，Claude Code 本来就用它跑 hook。&lt;/p&gt;
+&lt;p&gt;推送和中继靠的是 &lt;a class=&#34;link&#34; href=&#34;https://github.com/binwiederhier/ntfy&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ntfy&lt;/a&gt;；用一次性 topic 在手机上批准请求，这个思路来自 &lt;a class=&#34;link&#34; href=&#34;https://github.com/fomyio/clauding-afk&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;clauding-afk&lt;/a&gt;。没有抄代码，感谢的是想法。&lt;/p&gt;
+&lt;p&gt;macOS 和 Linux 我手上没有真机，用过的话，欢迎到 &lt;a class=&#34;link&#34; href=&#34;https://github.com/Dreamistic/are-you-there&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub&lt;/a&gt; 提 issue 告诉我结果。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>林晚晴：一个长期运行的私人陪伴 Agent</title>
         <link>https://dreamistic.github.io/p/ai-companion-agent/</link>
         <pubDate>Tue, 06 Oct 2026 20:00:00 +0800</pubDate>
